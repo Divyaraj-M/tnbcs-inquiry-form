@@ -27,8 +27,6 @@ if 'form_submitted' not in st.session_state:
 if st.session_state.form_submitted:
     st.success("✅ Thank you! Our team will connect with you shortly.")
     st.markdown("You will be redirected to the [TnBcS Home Page](https://tnbcs.framer.website) shortly...")
-
-    # Redirect after 5 seconds
     st.markdown("""
         <meta http-equiv="refresh" content="5;url=https://tnbcs.framer.website">
     """, unsafe_allow_html=True)
@@ -62,8 +60,7 @@ else:
                 st.error("Please fill all required fields marked with *.")
             else:
                 timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                service_str = ", ".join(service)  # Convert list to string for Sheets
-                sheet.append_row([timestamp, name, company, email, phone, ", ".join(service), message])
+                service_str = ", ".join(service)
+                sheet.append_row([timestamp, name, company, email, phone, service_str, message])
                 st.session_state.form_submitted = True
                 st.rerun()
-   
